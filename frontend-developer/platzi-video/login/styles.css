@@ -31,6 +31,7 @@ body {
 
 .login__container {
   background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   border: solid 2px #FFF;
   border-radius: 40px;
   color: #FFF;
@@ -115,7 +116,7 @@ body {
 }
 
 .button {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.3);
   border: none;
   border-radius: 25px;
   color: #FFF;
@@ -151,6 +152,7 @@ body {
 @media only screen and (max-width: 600px) {
   .login__container {
     background-color: transparent;
+    box-shadow: none;
     border: none;
     padding: 0px;
     width: 100%;
@@ -163,5 +165,19 @@ body {
 
   .footer a {
     margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 355px) {
+  .header__img {
+    width: 150px;
+  }
+
+  .login__container h2 {
+    font-size: 25px;
+  }
+
+  ::placeholder {
+    font-size: 14px;
   }
 }

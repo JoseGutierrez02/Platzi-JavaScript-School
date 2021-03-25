@@ -9,7 +9,6 @@ body {
   color: #FFF;
   display: flex;
   height: 100px;
-  justify-content: space-between;
   top: 0px;
   width: 100%;
 }
@@ -81,5 +80,15 @@ body {
 
   .footer a {
     margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 355px) {
+  .header__img {
+    width: 150px;
+  }
+
+  .not-found h1 {
+    font-size: 60px;
   }
 }
