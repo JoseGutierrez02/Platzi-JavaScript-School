@@ -4,6 +4,6 @@ function car(brand, model, year) {
   this.year = year
 }
 
-var newCar = new car('Toyota', 'Corolla', 2020);
+var newCar = new car("Toyota", "Corolla", 2020);
 console.log(newCar.model);
 
