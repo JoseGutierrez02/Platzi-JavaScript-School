@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/js-profesional-icon.png" type="image/x-icon">
+  <title>This</title>
+</head>
+<body>
+  <a href="/exercises/">Go back</a>
+  <p><em>Open the console</em></p>
+
+  <h1>
+    <code>this</code> refers to an object. That object is the one that is
+    executing a piece of code.
+  </h1>
+
+  <script>
+    // "this" on global scope
+    console.log(`this: ${this}`);
+
+    // "this" on function scope
+    function whoIsThis() {
+      return this;
+    }
+
+    console.log(`WhoIsThis(): ${whoIsThis()}`);
+
+    // "this" on functions with strict mode
+    function whoIsThisStrict() {
+      'use strict';
+      return this;
+    }
+
+    console.log(`WhoIsThisStrict(): ${whoIsThisStrict()}`);
+
+    // "this" on object scope
+    const person = {
+      name: 'Gabriel',
+      greet: function() {
+        console.log(`Hello, I am ${this.name}`);
+      }
+    };
+
+    person.greet();
+
+    // "this" when we take out a function of an object
+    const action = person.greet;
+    action();
+
+    // "this" on class scope
+    function Person(name) {
+      this.name = name;
+    }
+
+    Person.prototype.greet = function() {
+      console.log(`Hello, my name is ${this.name}`);
+    }
+
+    const angela = new Person('Angela');
+    angela.greet();
+  </script>
+</body>
+</html>

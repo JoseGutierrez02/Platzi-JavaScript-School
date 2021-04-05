@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/js-profesional-icon.png" type="image/x-icon">
+  <title>Prototype</title>
+</head>
+<body>
+  <a href="/exercises/">Go back</a>
+  <p><em>Open the console</em></p>
+
+  <script>
+    /* A common object */
+    // const wolverine = {
+    //   name: 'Wolverine',
+    // };
+
+    // wolverine.greet = function() {
+    //   console.log(`Hello, I am ${this.name}`);
+    // };
+
+    // wolverine.greet();
+
+    // const spiderMan = {
+    //   name: 'Spider-man',
+    // };
+
+    // spiderMan.greet = function() {
+    //   console.log(`Hello, I am ${this.name}`);
+    // };
+
+    // spiderMan.greet();
+
+    /* Let's be more efficient*/
+    // function Hero(name) {
+    //   const hero = {
+    //     name: name,
+    //   };
+
+    //   hero.greet = function() {
+    //     console.log(`Hello, I am ${this.name}`);
+    //   };
+
+    //   return hero;
+
+    // }
+
+    // const wolverine = Hero('Wolverine');
+    // wolverine.greet();
+    // const spiderMan = Hero('Spider-man');
+    // spiderMan.greet();
+
+    /* Let's be even more efficient */
+    // const heroMethods = {
+    //   greet: function() {
+    //     console.log(`My name is ${this.name}`);
+    //   }
+    // }
+
+    // function Hero(name) {
+    //   const hero = {
+    //     name: name,
+    //   };
+    //   hero.greet = heroMethods.greet;
+    //   return hero;
+    // }
+
+    // const wolverine = Hero('Wolverine');
+    // wolverine.greet();
+    // const spiderMan = Hero('Spider-man');
+    // spiderMan.greet();
+
+    /* Object.create */
+    // const newObject = Object.create(object);
+    // const heroMethods = {
+    //   greet: function() {
+    //     console.log(`My name is ${this.name} bitch`);
+    //   }
+    // }
+
+    // function Hero(name) {
+    //   const hero = Object.create(heroMethods);
+    //   hero.name = name;
+    //   return hero;
+    // }
+
+    // const wolverine = Hero('Wolverine');
+    // wolverine.greet();
+    // const spiderMan = Hero('Spider-man');
+    // spiderMan.greet();
+
+    /* Hero Methods inside Hero */
+    // function Hero(name) {
+    //   const hero = Object.create(Hero.prototype);
+    //   hero.name = name;
+    //   return hero;
+    // }
+
+    // Hero.prototype.greet = function() {
+    //   console.log(`My name is ${this.name}`);
+    // };
+
+    // const wolverine = Hero('Wolverine');
+    // wolverine.greet();
+    // const spiderMan = Hero('Spider-man');
+    // spiderMan.greet();
+
+    /* new is a shortcut (sugar syntax) to take Hero.prototype to the object */
+    function Hero(name) {
+      this.name = name;
+    }
+
+    Hero.prototype.greet = function() {
+      console.log(`New Hero: ${this.name}`);
+    };
+
+    const wolverine = new Hero('Wolverine');
+    wolverine.greet();
+
+    const spiderMan = new Hero('Spider-man');
+    spiderMan.greet();
+  </script>
+</body>
+</html>

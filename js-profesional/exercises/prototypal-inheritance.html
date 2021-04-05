@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/js-profesional-icon.png" type="image/x-icon">
+  <title>Prototypal Inheritance</title>
+</head>
+<body>
+  <a href="/exercises/">Go back</a>
+  <p><em>Open the console</em></p>
+
+  <h1>
+    <code>SomeObject.prototype</code> is an object where we define the
+    prototype's instance properties of <code>SomeObject</code>. Meaning,
+    <code>SomeObject</code> instances are going to "inherit" from
+    <code>SomeObject.prototype</code>.
+    <br />
+    <br />
+    <code>SomeObject.[[Prototype]]</code> is the prototype of
+    <code>SomeObject</code>. Meaning, <code>SomeObject</code> "inherits" from
+    <code>SomeObject.prototype</code>.
+  </h1>
+
+  <script>
+    function Hero(name) {
+      this.name = name;
+    }
+
+    Hero.prototype.greet = function() {
+      console.log(`New Hero: ${this.name}`);
+    };
+
+    const wolverine = new Hero('Wolverine');
+
+    /* instance properties */
+    console.log(`Name: ${wolverine.name}`);
+
+    /* "class" properties */
+    console.log(`Greet: ${wolverine.greet}`);
+
+    /* inherited properties ex: toString */
+    console.log(`toString: ${wolverine.toString}`);
+
+    /* hasOwnProperty (origin of toString or this) */
+    console.log(
+      `wolverine.hasOwnProperty('greet'): ${wolverine.hasOwnProperty('greet')}`
+      );
+
+    /* wolverine prototype inspection */
+    /* Hero prototype inspection */
+    /* Object prototype inspection */
+
+  </script>
+</body>
+</html>
