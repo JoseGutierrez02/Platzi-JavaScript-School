@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./assets/js-profesional-icon.png" type="image/x-icon">
+  <title>Generators</title>
+</head>
+<body>
+  <a href="/exercises/">Go back</a>
+  <p><em>Open the console</em></p>
+
+  <script>
+    /* Every time we call next, the execution of the generator will continue till the next yield. */
+    // function* simpleGenerator() {
+    //   console.log('GENERATOR START');
+    //   yield 1;
+    //   yield 2;
+    //   yield 3;
+    //   console.log('GENERATOR END');
+    // }
+    
+    // const gen = simpleGenerator();
+
+    /* We can code an infinite generator */
+    // function* idMaker(){
+    //   let id = 1;
+    //   while(true) {
+    //     yield id;
+    //     id++;
+    //   }
+    // }
+
+    // const gen = idMaker();
+    // gen.next(); id = 1
+    // gen.next(); id = 2
+    // gen.next(); id = 3
+
+    /* When we call next we can also pass values that the function receives */
+    // function* idMakerWithReset(){
+    //   let id = 1;
+    //   let reset;
+
+    //   while(true) {
+    //     reset = yield id;
+    //     (reset) ? id = 1 : id++;
+    //   }
+    // }
+
+    // const gen = idMakerWithReset();
+    // gen.next(); // id = 1
+    // gen.next(); // id = 2
+    // gen.next(); // id = 3
+    // gen.next(); // id = 4
+    // gen.next(true) // id = 1
+
+    /* Example: Fibonacci sequence */  
+    function* fibonacci() {
+      let a = 1;
+      let b = 1;
+      
+      while(true) {
+        const nextNumber = a + b;
+        a = b;
+        b = nextNumber;
+        yield nextNumber;
+      }
+    }
+
+    const gen = fibonacci();
+    gen.next() // 2
+    gen.next() // 3
+    gen.next() // 5
+    gen.next() // 8
+    gen.next() // 13
+    gen.next() // 21
+  </script>
+</body>
+</html>
