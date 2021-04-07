@@ -49,9 +49,9 @@ function add(a: number, b: number): number {
 const sum = add(4, 6);
 
 function createAdder(a: number): (number) => number {
-  return function(b: number) {
+  return function (b: number) {
     return b + a;
-  }
+  };
 }
 
 const addFour = createAdder(4);
@@ -63,3 +63,29 @@ function fullName(firstName: string, lastName: string = 'Smith'): string {
 
 const jose = fullName('Agent');
 console.log(jose);
+
+// Interfaces
+interface Rectangle {
+  width: number;
+  height: number;
+  color?: Color;
+}
+
+let rect: Rectangle = {
+  width: 4,
+  height: 6,
+  color: Color.Blue,
+};
+
+function area(r: Rectangle) {
+  return r.height * r.width;
+}
+
+const areRect = area(rect);
+console.log(areRect);
+
+rect.toString = function () {
+  return this.color ? `A ${this.color} rectangle` : `A rectangle`;
+};
+
+console.log(rect.toString());
