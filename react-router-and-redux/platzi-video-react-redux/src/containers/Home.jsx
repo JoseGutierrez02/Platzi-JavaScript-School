@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { searchRequest } from '../actions';
 import Header from '../components/Header';
 import Search from '../components/Search';
 import Categories from '../components/Categories';
@@ -7,13 +8,28 @@ import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem';
 import '../assets/styles/App.scss';
 
-const Home = ({ myList, trends, originals }) => {
+const Home = ({ myList, trends, originals, search, searchRequest }) => {
+  const hasSearch = search.length > 0;
+  const isList = myList.length > 0;
+  useEffect(() => { 
+    if (hasSearch) searchRequest('');
+  }, []);
   return (
     <>
       <Header />
       <Search isHome />
 
-      {myList.length > 0 &&
+      {hasSearch &&
+        <Categories title='Resultados'>
+          <Carousel>
+            {search.map((item) => 
+              <CarouselItem key={item.id} {...item} />,
+            )}
+          </Carousel>
+        </Categories>
+      }
+
+      {isList > 0 &&
         <Categories title='Mi lista'>
           <Carousel>
             {myList.map((item) => 
@@ -46,10 +62,15 @@ const Home = ({ myList, trends, originals }) => {
   );
 };
 
-const mapStateToProps = ({ myList, trends, originals }) => ({
+const mapStateToProps = ({ myList, trends, originals, search }) => ({
   myList,
   trends,
   originals,
+  search,
 });
 
-export default connect(mapStateToProps, null)(Home);
+const mapDispatchToProps = {
+  searchRequest,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

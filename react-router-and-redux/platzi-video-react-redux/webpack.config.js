@@ -60,6 +60,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: './index.html',
+      favicon: './src/assets/static/platzi_favicon.png',
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/[name].css',
