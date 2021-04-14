@@ -6,12 +6,16 @@
   align-items: center;
 }
 
+.search .isHome {
+  width: 70%;
+}
+
 .search__title {
   color: #FFF;
   font-size: 25px;
 }
 
-.input {
+.search__input {
   background-color: rgba(255, 255, 255, 0.1);
   border: 2px solid #FFF;
   border-radius: 25px;

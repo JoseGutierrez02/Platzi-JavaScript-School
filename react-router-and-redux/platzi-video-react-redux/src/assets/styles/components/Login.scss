@@ -15,8 +15,8 @@
   border-radius: 40px;
   color: #FFF;
   padding: 60px 68px 40px;
-  // min-height: 700px;
-  // width: 300px;
+  min-height: 800px;
+  width: 440px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -64,11 +64,16 @@
   font-size: 14px;
 }
 
+.login__container--register p {
+  margin-right: 10px;
+} 
+
 .login__container--register a {
   color: #FFF;
   font-weight: bold;
   font-size: 16px;
   text-decoration: none;
+  margin-left: 5px;
 } 
 
 .login__container--register a:hover {
