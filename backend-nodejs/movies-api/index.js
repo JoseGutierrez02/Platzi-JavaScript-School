@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
 const { config } = require('./config');
@@ -9,6 +10,8 @@ const notFoundHandler = require('./utils/middleware/notFoundHandler');
 
 // body-parser middleware
 app.use(express.json());
+// http requests logger middleware
+app.use(morgan('tiny'))
 
 // routes
 moviesApi(app);
