@@ -2,14 +2,12 @@ const express = require('express');
 const app = express();
 
 const { config } = require('./config');
+const moviesApi = require('./routes/movies');
 
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
+// body-parser middleware
+app.use(express.json());
 
-app.get('/json', (req, res) => {
-  res.json({ hello: 'world' });
-});
+moviesApi(app);
 
 app.listen(config.port, () => {
   console.log(`Server listening at http://localhost:${config.port}`);
