@@ -1,17 +1,34 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+require('dotenv').config();
+
+const isDev = process.env.ENV === 'development';
+const entry = ['./src/frontend/index.js'];
+
+if (isDev) {
+  entry.push(
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true',
+  );
+}
 
 module.exports = {
-  entry: ['./src/frontend/index.js', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
-  mode: 'development',
+  entry,
+  mode: process.env.ENV,
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'assets/app.js',
+    path: path.resolve(__dirname, 'src/server/public'),
+    filename: isDev ? 'assets/app.js' : 'assets/app-[contenthash].js',
     publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
   },
   module: {
     rules: [
@@ -21,14 +38,6 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
       },
       {
         test: /\.(s*)css$/,
@@ -44,7 +53,7 @@ module.exports = {
         test: /\.(png|gif|jpg)$/,
         use: [
           {
-            'loader': 'file-loader',
+            loader: 'file-loader',
             options: {
               name: 'assets/[hash].[ext]',
             },
@@ -58,10 +67,15 @@ module.exports = {
     open: true,
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    isDev ? new webpack.HotModuleReplacementPlugin() : () => {},
+    isDev ? () => {} : new CompressionWebpackPlugin({
+      test: /\.js$|\.css$/,
+      filename: '[path][base].gz',
+    }),
+    isDev ? () => {} : new WebpackManifestPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'assets/app.css',
+      filename: isDev ? 'assets/app.css' : 'assets/app-[contenthash].css',
     }),
   ],
 };
