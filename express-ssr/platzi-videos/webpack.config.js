@@ -5,6 +5,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 require('dotenv').config();
 
 const isDev = process.env.ENV === 'development';
@@ -85,6 +86,10 @@ module.exports = {
     open: true,
   },
   plugins: [
+    isDev ? new ESLintPlugin({
+      extensions: ['js', 'jsx'],
+      exclude: './node_modules/',
+    }) : () => {},
     isDev ? new webpack.HotModuleReplacementPlugin() : () => {},
     isDev ? () => {} : new CompressionWebpackPlugin({
       test: /\.js$|\.css$/,
