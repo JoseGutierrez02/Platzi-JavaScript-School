@@ -6,7 +6,7 @@ class MoviesService {
     this.mongoDB = new MongoLib();
   }
   async getMovies({ tags }) {
-    const query = tags && { tags: { $in: tags }};
+    const query = tags && { tags: { $in: tags } };
     const movies = await this.mongoDB.getAll(this.collection, query);
     return movies || [];
   }
@@ -22,7 +22,11 @@ class MoviesService {
   }
 
   async updateMovie({ movieId, movie } = {}) {
-    const updatedMovieId = await this.mongoDB.update(this.collection, movieId, movie);
+    const updatedMovieId = await this.mongoDB.update(
+      this.collection,
+      movieId,
+      movie
+    );
     return updatedMovieId || {};
   }
 
