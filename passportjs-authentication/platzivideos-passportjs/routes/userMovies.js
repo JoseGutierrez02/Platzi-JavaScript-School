@@ -10,7 +10,7 @@ const {
 } = require('../utils/schemas/userMovies');
 
 const userMoviesApi = (app) => {
-  const router = express.router();
+  const router = express.Router();
   app.use('/api/user-movies', router);
   const userMoviesService = new UserMoviesService();
 
