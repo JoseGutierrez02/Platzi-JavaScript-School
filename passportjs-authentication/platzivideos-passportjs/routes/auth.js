@@ -25,14 +25,14 @@ const authApi = (app) => {
     passport.authenticate('basic', (error, user) => {
       try {
         if (error || !user) {
-          next(boom.unauthorized('error 1'));
+          next(boom.unauthorized());
         }
 
         req.login(user, { session: false }, async (error) => {
           if (error) next(error);
 
           const apiKey = await apiKeysService.getApiKey({ token: apiKeyToken });
-          if (!apiKey) next(boom.unauthorized('error 2'));
+          if (!apiKey) next(boom.unauthorized());
 
           const { _id: id, name, email } = user;
           const payload = {
