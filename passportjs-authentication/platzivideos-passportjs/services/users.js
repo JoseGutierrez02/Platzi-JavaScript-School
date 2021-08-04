@@ -18,7 +18,7 @@ class UsersService {
     const createdUserId = await this.mongoDB.create(this.collection, {
       name,
       email,
-      hashedPassword,
+      password: hashedPassword,
     });
 
     return createdUserId;
