@@ -2,6 +2,7 @@ const joi = require('@hapi/joi');
 
 const userIdSchema = joi.object({
   userId: joi.string().regex(/^[0-9a-fA-F]{24}$/),
+  // .required(),
 });
 
 const createUserSchema = joi.object({

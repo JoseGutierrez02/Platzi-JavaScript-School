@@ -1,16 +1,15 @@
 const joi = require('@hapi/joi');
 
-const { movieIdSchema } = require('./movies');
-const { userIdSchema } = require('./users');
+const mongoObjectIdSchema = joi.string().regex(/^[0-9a-fA-F]{24}$/);
 
 const userMovieIdSchema = joi.object({
-  userMovieId: joi.string().regex(/^[0-9a-fA-F]{24}$/),
+  userMovieId: mongoObjectIdSchema,
 });
 
-const createUserMovieSchema = {
-  userId: userIdSchema,
-  movieId: movieIdSchema,
-};
+const createUserMovieSchema = joi.object({
+  userId: mongoObjectIdSchema.required(),
+  movieId: mongoObjectIdSchema.required(),
+});
 
 module.exports = {
   userMovieIdSchema,
