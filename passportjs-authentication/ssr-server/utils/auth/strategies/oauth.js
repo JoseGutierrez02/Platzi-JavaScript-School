@@ -18,11 +18,7 @@ const oAuth2Strategy = new OAuth2Strategy(
     callbackURL: '/auth/google-oauth/callback',
   },
   async (accessToken, refreshToken, params, profile, cb) => {
-    console.log(params);
-
     const profileUser = jwt.decode(params.id_token);
-
-    // console.log(profileUser);
 
     const { data, status } = await axios({
       url: `${config.apiUrl}/api/auth/sign-provider`,
