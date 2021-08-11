@@ -5,6 +5,7 @@ const boom = require('@hapi/boom');
 const cookieParser = require('cookie-parser');
 const axios = require('axios');
 const { config } = require('./config');
+const { rearg } = require('lodash');
 
 const app = express();
 
@@ -25,6 +26,9 @@ require('./utils/auth/strategies/oauth');
 
 // twitter strategy
 require('./utils/auth/strategies/twitter');
+
+// facebook strategy
+require('./utils/auth/strategies/facebook');
 
 app.post('/auth/sign-in', async (req, res, next) => {
   passport.authenticate('basic', (error, data) => {
@@ -152,7 +156,28 @@ app.get(
 
     const { token, ...user } = req.user;
 
-    req.cookies('token', token, {
+    res.cookie('token', token, {
+      httpOnly: !config.dev,
+      secure: !config.dev,
+    });
+
+    res.status(200).json(user);
+  }
+);
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get(
+  '/auth/facebook/callback',
+  passport.authenticate('facebook', { session: false }),
+  (req, res, next) => {
+    if (!req.user) {
+      next(boom.unauthorized());
+    }
+
+    const { token, ...user } = req.user;
+
+    res.cookie('token', token, {
       httpOnly: !config.dev,
       secure: !config.dev,
     });
