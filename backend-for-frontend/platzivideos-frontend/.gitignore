@@ -75,6 +75,3 @@ yarn-error.log
 # Build
 dist/
 src/server/public
-
-# Next JS
-.next/

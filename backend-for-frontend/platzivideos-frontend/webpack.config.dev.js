@@ -1,22 +1,22 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  entry: './src/frontend/index.js',
+  entry: [
+    './src/frontend/index.js',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true',
+  ],
   output: {
-    path: path.resolve(__dirname, 'src/server/public'),
-    filename: 'assets/app-[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'assets/app.js',
     publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -25,14 +25,6 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
       },
       {
         test: /\.(s*)css$/,
@@ -51,9 +43,13 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    historyApiFallback: true,
+    open: true,
+  },
   optimization: {
-    minimize: true,
-    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
     splitChunks: {
       chunks: 'async',
       cacheGroups: {
@@ -62,7 +58,7 @@ module.exports = {
           chunks: 'all',
           reuseExistingChunk: true,
           priority: 1,
-          filename: 'assets/vendor-[contenthash].js',
+          filename: 'assets/vendor.js',
           enforce: true,
           test(module, chunk) {
             const name = module.nameForCondition && module.nameForCondition();
@@ -74,14 +70,13 @@ module.exports = {
     },
   },
   plugins: [
-    new CompressionWebpackPlugin({
-      test: /\.js$|\.css/,
-      filename: '[path][base].gz',
-    }),
-    new WebpackManifestPlugin(),
-    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'assets/app-[contenthash].css',
+      filename: 'assets/app.css',
+    }),
+    new ESLintPlugin({
+      extensions: ['js', 'jsx'],
+      exclude: './node_modules/',
     }),
   ],
 };
