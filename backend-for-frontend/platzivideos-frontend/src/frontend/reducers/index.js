@@ -32,7 +32,7 @@ const reducer = (state, action) => {
       const lists = [...state.trends, ...state.originals];
       return {
         ...state,
-        playing: lists.find((item) => item.id === Number(action.payload)) || [],
+        playing: lists.find((item) => item.id === action.payload) || [],
       };
     case 'SEARCH_REQUEST':
       const fullList = [...state.trends, ...state.originals];

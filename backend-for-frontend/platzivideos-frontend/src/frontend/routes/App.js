@@ -14,7 +14,7 @@ const App = ({ isLogged }) => (
         <Route exact path='/' component={isLogged ? Home : Login} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
-        <Route exact path='/player/:id' component={isLogged ? Login : Player} />
+        <Route exact path='/player/:id' component={isLogged ? Player : Login} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

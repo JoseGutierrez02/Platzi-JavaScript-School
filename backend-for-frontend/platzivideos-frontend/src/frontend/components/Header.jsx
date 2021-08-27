@@ -13,6 +13,7 @@ const Header = (props) => {
   const hasUser = Object.keys(user).length > 0;
 
   const handleLogout = () => {
+    console.log(document.cookie);
     document.cookie = 'email=';
     document.cookie = 'name=';
     document.cookie = 'id=';
@@ -42,7 +43,11 @@ const Header = (props) => {
         </div>
         <ul>
           {hasUser ?
-            <li><a href='/'>{user.name}</a></li> :
+            <li>
+              <Link to='/'>
+                {user.name}
+              </Link>
+            </li> :
             null
           }
           {hasUser ?
