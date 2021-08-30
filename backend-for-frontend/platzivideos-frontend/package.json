@@ -2,7 +2,7 @@
   "name": "platzivideos-frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server/index.js",
   "scripts": {
     "build": "webpack-cli --config webpack.config.js",
     "start": "ENV=production node src/server",
@@ -10,6 +10,7 @@
     "lint": "eslint src/frontend/ --ext .js --ext .jsx --fix",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "update:snapshot": "jest --updateSnapshot"
   },
   "keywords": [],
@@ -77,6 +78,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "jest": {
+    "verbose": true,
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
       "<rootDir>/src/frontend/__test__/setupTest.js"
