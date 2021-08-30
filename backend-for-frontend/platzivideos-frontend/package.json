@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server/index.js",
+  "engines": {
+    "node": "14.15.5"
+  },
   "scripts": {
     "build": "webpack-cli --config webpack.config.js",
     "start": "ENV=production node src/server",
